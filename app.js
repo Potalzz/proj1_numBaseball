@@ -1,49 +1,40 @@
-// let answer = String(Math.floor(Math.random() * 10000));
-
-function makeAnswer() {
+function baseballGame() {
   let answer = [
     String(Math.floor(Math.random() * 10)),
     String(Math.floor(Math.random() * 10)),
     String(Math.floor(Math.random() * 10)),
     String(Math.floor(Math.random() * 10)),
   ];
-}
+  console.log(answer); //랜덤 숫자 생성
 
-let ball = 0;
-let strike = 0;
+  let guessNum = prompt("숫자를 입력해주세요.").split(""); //숫자 입력
+  let ball = 0;
+  let strike = 0;
 
-let guessNum = prompt("숫자를 입력해주세요.");
-guessNum = guessNum.split("");
-
-function guessNumber() {
-  for (const [idx, i] of guessNum.entries()) {
-    for (const ans of answer) {
-      if (i === ans) {
-        ball += 1;
+  while (guessNum.join("") !== answer.join("")) {
+    //숫자 맞추기 반복문
+    ball = 0;
+    strike = 0;
+    for (const [idx, i] of guessNum.entries()) {
+      //숫자를 인덱스,값 으로 나눠서 비교
+      for (const ans of answer) {
+        if (i === ans) {
+          ball += 1;
+        }
+      }
+      if (i === answer[idx]) {
+        strike += 1;
+        ball -= 1;
       }
     }
-    if (i === answer[idx]) {
-      strike += 1;
-      ball -= 1;
-      console.log(i, idx, answer[idx]);
-    }
+    guessNum = prompt(`${ball}볼 ${strike}스트라이크 입니다.`).split("");
   }
-}
-
-function baseballGame() {
-  while (guessNum === answer) {
-    if (response.toUpperCase() === "Y") {
-      baseballGame();
-    }
-    let guessNum = prompt("숫자를 입력해주세요.");
-    guessNum = guessNum.split("");
-    guessNumber();
-  }
-  let response = prompt(`정답입니다 ! 정답은 ${answer.join("")}이였습니다.`);
+  alert(`축하드립니다 ! 정답은 ${answer.join("")}이였습니다.`);
+  let response = prompt("한 번 더 플레이를 원하시면 Y를 입력해 주세요.");
   if (response.toUpperCase() === "Y") {
-    baseballGame();
+    baseballGame(); //재시작
   } else {
-    return alert("게임이 종료되었습니다.");
+    alert("게임이 종료되었습니다.");
   }
 }
 
