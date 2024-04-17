@@ -14,12 +14,15 @@ let guessNum = prompt("숫자를 입력해주세요.");
 guessNum = guessNum.split("");
 
 for (const [idx, i] of guessNum.entries()) {
-  if (i === answer[idx]) {
-    strike += 1;
+  for (const ans of answer) {
+    if (i === ans) {
+      if (i === answer[idx]) {
+        strike += 1;
+        continue;
+      }
+      ball += 1;
+    }
   }
-  // if ( answer.includes(i)) {
-  //   ball +
-  // }
 }
 /*
 정답을 배열로 저장해서, index와 값이 같으면 strike +1
