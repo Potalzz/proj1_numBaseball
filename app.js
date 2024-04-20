@@ -23,15 +23,40 @@ function baseballGame() {
 
   console.log(answer);
 
-  let guessNum = prompt("숫자를 입력해주세요.").split(""); //숫자 입력
+  let guessNum = prompt("추측할 숫자를 입력해주세요."); //숫자 입력
+
+  const validateNum = () => {
+    if (String(parseInt(guessNum)) !== guessNum) {
+      guessNum = prompt(
+        "[ERROR] 문자가 포함되어 있습니다. 숫자를 입력해주세요."
+      );
+      return validateNum();
+    }
+    if (guessNum.length !== 4) {
+      guessNum = prompt(
+        "[ERROR] 숫자의 자리수가 4자리와 일치하지 않습니다. 4자리 숫자를 입력해주세요."
+      );
+      return validateNum();
+    }
+    if (new Set(guessNum.split("")).size < 4) {
+      guessNum = prompt(
+        "[ERROR] 중복되는 숫자가 있습니다. 중복되지않는 숫자를 입력해주세요."
+      );
+      return validateNum();
+    }
+    return console.log(`입력한 숫자 : ${guessNum}`);
+  };
+
+  validateNum();
+
   let ball = 0;
   let strike = 0;
 
-  while (guessNum.join("") !== answer.join("")) {
+  while (guessNum !== answer.join("")) {
     //숫자 맞추기 반복문
     ball = 0;
     strike = 0;
-    for (const [idx, i] of guessNum.entries()) {
+    for (const [idx, i] of guessNum.split("").entries()) {
       //숫자를 인덱스,값 으로 나눠서 비교
       for (const ans of answer) {
         if (i === ans) {
@@ -43,7 +68,8 @@ function baseballGame() {
         ball -= 1;
       }
     }
-    guessNum = prompt(`${ball}볼 ${strike}스트라이크 입니다.`).split("");
+    guessNum = prompt(`${ball}볼 ${strike}스트라이크 입니다.`);
+    validateNum();
   }
   alert(`축하드립니다 ! 정답은 ${answer.join("")}이였습니다.`);
   let response = prompt("한 번 더 플레이를 원하시면 Y를 입력해 주세요.");
