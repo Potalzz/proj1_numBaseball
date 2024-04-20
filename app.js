@@ -1,11 +1,27 @@
 function baseballGame() {
-  let answer = [
-    String(Math.floor(Math.random() * 10)),
-    String(Math.floor(Math.random() * 10)),
-    String(Math.floor(Math.random() * 10)),
-    String(Math.floor(Math.random() * 10)),
-  ];
-  console.log(answer); //랜덤 숫자 생성
+  // let answer = [
+  //   String(Math.floor(Math.random() * 10)),
+  //   String(Math.floor(Math.random() * 10)),
+  //   String(Math.floor(Math.random() * 10)),
+  //   String(Math.floor(Math.random() * 10)),
+  // ];
+  // console.log(answer); //랜덤 숫자 생성
+  let answer = [];
+
+  const makeRandNum = () => {
+    let num = String(Math.floor(Math.random() * 10));
+    if (answer.includes(num) == false) {
+      return answer.push(num);
+    } else {
+      return makeRandNum();
+    }
+  };
+
+  for (let i = 0; i < 4; i++) {
+    makeRandNum();
+  }
+
+  console.log(answer);
 
   let guessNum = prompt("숫자를 입력해주세요.").split(""); //숫자 입력
   let ball = 0;
